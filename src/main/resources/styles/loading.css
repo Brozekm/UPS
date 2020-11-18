@@ -1,0 +1,12 @@
+.pictures{
+    -fx-background-color:  white;
+}
+
+.leftBackground{
+    -fx-background-color:  linear-gradient(to right bottom, #135dd1, #0083e5, #00a0de, #00b9c7, #00cdac);
+    -fx-effect:  dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 20, 0, -5, 0);
+
+}
+.imagesHid{
+    -fx-blend-mode: SCREEN;
+}

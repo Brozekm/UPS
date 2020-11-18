@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.JFXTextField?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="800.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.LaunchScrController">
+    <children>
+        <AnchorPane layoutX="90.0" layoutY="72.0" prefHeight="456.0" prefWidth="471.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+            <children>
+                <AnchorPane layoutX="306.0" layoutY="42.0" prefHeight="560.0" prefWidth="401.0" style="-fx-background-color: white; -fx-background-radius: 1em; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 20, 0, 0, 0);" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="306.0" AnchorPane.topAnchor="30.0">
+                    <children>
+                        <AnchorPane prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: transparent;" AnchorPane.rightAnchor="0.0">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#exitApp" prefHeight="75.0" prefWidth="82.0" style="-fx-background-radius: 10px; -fx-background-color: #ff6700;" text="X" textFill="#ab0303" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <font>
+                                        <Font size="35.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                        </AnchorPane>
+                        <Button layoutX="112.0" layoutY="327.0" mnemonicParsing="false" onAction="#startTheGame" prefHeight="85.0" prefWidth="186.0" style="-fx-background-color: #FFA200; -fx-background-radius: 20px;" text="Start the GAME!" AnchorPane.bottomAnchor="148.0" AnchorPane.leftAnchor="112.0" AnchorPane.rightAnchor="103.0">
+                            <font>
+                                <Font name="System Bold Italic" size="15.0" />
+                            </font></Button>
+                        <JFXTextField fx:id="inpNick" focusColor="#00dcad" labelFloat="true" layoutX="112.0" layoutY="219.0" prefHeight="68.0" prefWidth="254.0" promptText="Nickname" unFocusColor="BLACK" AnchorPane.bottomAnchor="273.0" AnchorPane.leftAnchor="112.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="219.0">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </JFXTextField>
+                        <Label fx:id="labError" layoutX="112.0" layoutY="140.0" prefHeight="49.0" prefWidth="254.0" textFill="#ab0303" AnchorPane.bottomAnchor="371.0" AnchorPane.leftAnchor="112.0" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="140.0">
+                            <font>
+                                <Font name="System Bold" size="17.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </AnchorPane>
+                <AnchorPane layoutX="14.0" layoutY="12.0" prefHeight="590.0" prefWidth="371.0" style="-fx-background-color: linear-gradient(to right bottom, #135dd1, #0083e5, #00a0de, #00b9c7, #00cdac); -fx-background-radius: 1em; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 20, 0, -5, 0);" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+                    <children>
+                        <Label layoutX="14.0" layoutY="555.0" prefHeight="35.0" prefWidth="208.0" text="Made by Martin Brozek" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="149.0" AnchorPane.topAnchor="555.0">
+                            <font>
+                                <Font name="System Bold" size="15.0" />
+                            </font>
+                        </Label>
+                    </children></AnchorPane>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
