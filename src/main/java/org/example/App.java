@@ -51,21 +51,27 @@ public class App extends Application {
 
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
-        scene.getStylesheets().add("styles/game.css");
     }
 
     static void changeToLoading(){
         scene.getStylesheets().clear();
         scene.getStylesheets().add("styles/loading.css");
+        System.out.println("Change to Loading screen");
     }
     static void changeToPlayMode(){
         scene.getStylesheets().clear();
         scene.getStylesheets().add("styles/game.css");
     }
 
-    static boolean canSendRequest(){
-        return scene.getStylesheets().contains("styles/game.css");
+    static void addStyleSheet(String sheet){
+        scene.getStylesheets().add("styles/"+sheet);
     }
+
+    static void removeStyleSheet(String sheet){
+        scene.getStylesheets().remove("styles/"+sheet);
+    }
+
+
 
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));

@@ -11,9 +11,9 @@ public class GameScrController extends MainController {
     @FXML
     private void rock() {
         System.out.println("rock");
-        if (App.canSendRequest()) {
-            App.changeToLoading();
-        } else System.out.println("Not your turn");
+////        if (App.canSendRequest()) {
+//            App.changeToLoading();
+//        } else System.out.println("Not your turn");
     }
 
     @FXML

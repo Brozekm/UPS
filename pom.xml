@@ -9,6 +9,11 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
+
+
+
+
+
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -25,12 +30,27 @@
             <artifactId>javafx-graphics</artifactId>
             <version>11</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.github.typhon0</groupId>
+            <artifactId>AnimateFX</artifactId>
+            <version>1.2.2</version>
+            <type>pom</type>
+        </dependency>
+
         <dependency>
             <groupId>com.jfoenix</groupId>
             <artifactId>jfoenix</artifactId>
             <version>9.0.1</version>
         </dependency>
     </dependencies>
+    <repositories>
+        <repository>
+            <id>snapshots</id>
+            <name>libs-snapshot</name>
+            <url>https://oss.jfrog.org/artifactory/libs-snapshot</url>
+        </repository>
+    </repositories>
     <build>
         <plugins>
             <plugin>
@@ -65,6 +85,7 @@
                     <mainClass>org.example.App</mainClass>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 </project>

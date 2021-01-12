@@ -1,5 +1,5 @@
 .pictures{
-    -fx-background-color:  white;
+    -fx-background-color: white;
 }
 
 .leftBackground{
@@ -7,6 +7,4 @@
     -fx-effect:  dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 20, 0, -5, 0);
 
 }
-.imagesHid{
-    -fx-blend-mode: SCREEN;
-}
+
