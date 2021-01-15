@@ -5,21 +5,29 @@ import javafx.animation.FadeTransition;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
+
 import java.net.URL;
+
 import java.util.ResourceBundle;
 
 public class LoadingController extends MainController implements Initializable {
 
     @FXML
-    Circle circle1;
-    @FXML
-    Circle circle2;
-    @FXML
-    Circle circle3;
+    Circle circle1, circle2, circle3;
 
+    @FXML
+    Label serverAddLab, playerNickLab;
+
+
+    @FXML
+    public void setInfoServerClient(String nick, String address, String port){
+        playerNickLab.setText(nick);
+        serverAddLab.setText(address+":"+port);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

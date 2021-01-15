@@ -19,7 +19,7 @@ public class GameScrController extends MainController {
     @FXML
     private void paper() {
         System.out.println("paper");
-        App.changeToPlayMode();
+//        App.changeToPlayMode();
     }
 
     @FXML

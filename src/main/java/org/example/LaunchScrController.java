@@ -1,9 +1,8 @@
 package org.example;
 
 import com.jfoenix.controls.JFXTextField;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import java.io.IOException;
@@ -27,35 +26,67 @@ public class LaunchScrController extends MainController{
     @FXML
     private JFXTextField inpNick;
 
+    @FXML
+    Button connectBtn;
 
     @FXML
     private void startTheGame() throws IOException {
-        if(isServerAddressValid(inpServerAdr.getText(),inpServerPort.getText())){
+        if (Connection.getInstance().isConnected()){
+            labServerError.setOpacity(0);
             if (isNameValid(inpNick.getText())) {
-//            App.setRoot("primary");
-//            App.setRoot("gameScr");
-                App.setRoot("loadingScr");
-                App.changeToLoading();
+                App.changeToLoadingScr(inpNick.getText(), inpServerAdr.getText(), inpServerPort.getText());
                 System.out.println("Change of screen to game screne");
+            }
+        }else {
+            labServerError.setText("You are not connected");
+            labServerError.setOpacity(1);
+        }
+    }
+
+    @FXML
+    private void connectDisconnect(){
+        Connection conn = Connection.getInstance();
+        if(conn.isConnected()){
+            if(conn.disconnect()){
+                inpServerPort.setDisable(false);
+                inpServerAdr.setDisable(false);
+                connectBtn.setText("Connect");
+            }else System.out.println("Disconnect unsuccessful");
+
+        }else {
+            if(isServerAddressValid(inpServerAdr.getText(),inpServerPort.getText())){
+                if(conn.connect(inpServerAdr.getText(),inpServerPort.getText())){
+                    labServerError.setOpacity(0);
+                    inpServerPort.setDisable(true);
+                    inpServerAdr.setDisable(true);
+                    connectBtn.setText("Disconnect");
+                }else {
+                    labServerError.setText("Connection unsuccessful");
+                    labServerError.setOpacity(1);
+                    System.out.println("Connection unsuccessful");
+                }
             }
         }
 
     }
 
     private boolean isServerAddressValid(String serAddress, String port) {
-        labServerError.setText("");
-        labNickError.setText("");
+        labServerError.setOpacity(0);
+        labNickError.setOpacity(0);
         if(serAddress.length()!=0){
-            labServerError.setText("");
+            labServerError.setOpacity(0);
             if(port.length()!=0){
-                labServerError.setText("");
+                labServerError.setOpacity(0);
                 return serIsCorrectFormat(serAddress,port);
 
             }else{
+                labServerError.setOpacity(1);
                 labServerError.setText("Port is not filled");
+
                 return false;
             }
         }else{
+            labServerError.setOpacity(1);
             labServerError.setText("Address is not filled");
             return false;
         }
@@ -69,7 +100,9 @@ public class LaunchScrController extends MainController{
 
     private boolean isNameValid(String nick) {
         if (correctLength(nick)) {
+            labNickError.setOpacity(0);
             if (areThereSpecChars(nick)) {
+                labNickError.setOpacity(0);
                 return !isNickUsed(nick);
             } else {
                 return false;
@@ -81,7 +114,7 @@ public class LaunchScrController extends MainController{
 
     private boolean isNickUsed(String nick) {
 //        TODO ask server if nick is used, if not return false
-//        labError.setText("Nickname is used");
+//        Connection.getInstance()
         return false;
     }
 
@@ -89,6 +122,7 @@ public class LaunchScrController extends MainController{
         Pattern p = Pattern.compile("([a-zA-Z0-9]*)");
         Matcher m = p.matcher(nick);
         if (!m.matches()) {
+            labNickError.setOpacity(1);
             labNickError.setText("Special chars detected");
             return false;
         } else {
@@ -98,14 +132,21 @@ public class LaunchScrController extends MainController{
 
     private boolean correctLength(String nick) {
         if (nick.length() < 4) {
+            labNickError.setOpacity(1);
             labNickError.setText("Nickname is too short");
             return false;
         } else if (nick.length() > 32) {
+            labNickError.setOpacity(1);
             labNickError.setText("Nickname is too long");
             return false;
         } else {
             return true;
         }
+    }
+
+    public String[] getInputs(){
+        String[] arr = {inpNick.getText(), inpServerAdr.getText(), inpServerPort.getText()};
+        return arr;
     }
 
 

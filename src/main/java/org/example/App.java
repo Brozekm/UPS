@@ -53,24 +53,29 @@ public class App extends Application {
         scene.setRoot(loadFXML(fxml));
     }
 
-    static void changeToLoading(){
-        scene.getStylesheets().clear();
-        scene.getStylesheets().add("styles/loading.css");
-        System.out.println("Change to Loading screen");
-    }
-    static void changeToPlayMode(){
-        scene.getStylesheets().clear();
-        scene.getStylesheets().add("styles/game.css");
+
+    static void changeToLoadingScr(String nick, String address, String port){
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("loadingScr.fxml"));
+        try {
+            Parent parent = loader.load();
+
+            LoadingController controller = loader.getController();
+            controller.setInfoServerClient(nick , address, port);
+
+            scene.setRoot(parent);
+//            scene.getStylesheets().add("styles/loading.css");
+        } catch (IOException e){
+            System.err.println(e);
+        }
+
     }
 
-    static void addStyleSheet(String sheet){
-        scene.getStylesheets().add("styles/"+sheet);
-    }
 
-    static void removeStyleSheet(String sheet){
-        scene.getStylesheets().remove("styles/"+sheet);
+    static Object getController() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("main/resources/org.example/launchSrc" + ".fxml"));
+        fxmlLoader.load();
+        return fxmlLoader.getController();
     }
-
 
 
     private static Parent loadFXML(String fxml) throws IOException {
