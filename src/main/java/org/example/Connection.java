@@ -1,6 +1,8 @@
 package org.example;
 
+import javafx.application.Platform;
 import org.example.requests.ReqModifier;
+import org.example.requests.ReqType;
 import org.example.requests.Request;
 import org.example.serverResponse.ResponseParser;
 
@@ -16,6 +18,8 @@ public class Connection {
     private static final Connection connection = new Connection();
     private Socket socket;
     private boolean isConnected = false;
+
+    private boolean ping = false;
 
     private Connection(){
     }
@@ -47,6 +51,7 @@ public class Connection {
                 System.out.println("Connection to: "+ add.getHostAddress()+" with name: "+add.getHostName());
                 isConnected= true;
                 new Thread(this::serverListener).start();
+                new Thread(this::pingServer).start();
                 return true;
             }else{
                 isConnected = false;
@@ -60,6 +65,31 @@ public class Connection {
 
         }
 
+    }
+
+    public void setPing(boolean ping) {
+        this.ping = ping;
+    }
+
+    private void pingServer() {
+        while(true){
+            if (isConnected){
+                Request request = new Request(ReqType.PING, "0","Ping");
+                sendToServer(request);
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (ping){
+                    ping = false;
+                }else{
+                    System.out.println("Server is not running");
+                    Platform.runLater(Platform::exit);
+                    System.exit(0);
+                }
+            }
+        }
     }
 
     /** Method for disconnecting from server */

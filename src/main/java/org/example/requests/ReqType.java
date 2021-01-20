@@ -1,7 +1,7 @@
 package org.example.requests;
 
 public enum ReqType {
-    CONNECT(0),
+    PING(0),
     DISCONNECT(1),
     LOGIN(2),
     LOGOUT(3),

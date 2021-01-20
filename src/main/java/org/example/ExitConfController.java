@@ -1,20 +1,12 @@
 package org.example;
 
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import org.example.requests.ReqType;
 import org.example.requests.Request;
 
-import java.io.IOException;
 
 public class ExitConfController{
     @FXML
@@ -22,6 +14,8 @@ public class ExitConfController{
 
     @FXML
     private void exitApp(){
+        Request req = new Request(ReqType.DISCONNECT, String.valueOf(User.getInstance().getId()),User.getInstance().getNick());
+        Connection.getInstance().sendToServer(req);
         Stage stage = (Stage) exitStageButton.getScene().getWindow();
         stage.close();
         Connection.getInstance().disconnect();

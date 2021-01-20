@@ -42,6 +42,7 @@ public class LaunchScrController extends MainController{
         }
     }
 
+    @FXML
     public void setNickError(){
         labNickError.setText("Nickname is taken");
         labNickError.setOpacity(1);

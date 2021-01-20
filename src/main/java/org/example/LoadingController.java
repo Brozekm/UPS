@@ -38,6 +38,10 @@ public class LoadingController extends MainController implements Initializable {
             btnSurr.setDisable(true);
             btnSurr.setOpacity(0);
             constScore.setText("Enjoy the game");
+        }else if (infoText.length()>30){
+            btnSurr.setText("End the game");
+            btnSurr.setDisable(false);
+            btnSurr.setOpacity(1);
         }else {
             btnSurr.setDisable(false);
             btnSurr.setOpacity(1);

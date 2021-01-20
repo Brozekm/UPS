@@ -13,7 +13,6 @@ public class ReqModifier {
             request.append(param);
         }
         request.append("\n");
-        System.out.println(request.toString());
         return request.toString();
     }
 
