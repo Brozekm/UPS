@@ -70,8 +70,34 @@
                         <option>javafx.base/com.sun.javafx.event=com.jfoenix</option>
                     </options>
                     <mainClass>org.example.App</mainClass>
+                    <launcher>launch.sh</launcher>
+                    <compress>2</compress>
+                    <jlinkZipName>gol-sim</jlinkZipName>
+                    <jlinkImageName>gol-sim</jlinkImageName>
+                    <noManPages>true</noManPages>
+                    <noHeaderFiles>true</noHeaderFiles>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>org.example.SuperMain</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
 
         </plugins>
     </build>
