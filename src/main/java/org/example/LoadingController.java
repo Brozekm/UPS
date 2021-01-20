@@ -5,9 +5,12 @@ import javafx.animation.FadeTransition;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
+import org.example.requests.ReqType;
+import org.example.requests.Request;
 
 
 import java.net.URL;
@@ -20,13 +23,32 @@ public class LoadingController extends MainController implements Initializable {
     Circle circle1, circle2, circle3;
 
     @FXML
-    Label serverAddLab, playerNickLab;
+    Label serverAddLab, names,labInfoLoad, constScore;
+
+    @FXML
+    Button btnSurr;
 
 
     @FXML
-    public void setInfoServerClient(String nick, String address, String port){
-        playerNickLab.setText(nick);
+    public void setInfoServerClient(String nick, String address, String port, String infoText){
+        names.setText(nick);
         serverAddLab.setText(address+":"+port);
+        labInfoLoad.setText(infoText);
+        if (User.getInstance().getOppName().length() ==0){
+            btnSurr.setDisable(true);
+            btnSurr.setOpacity(0);
+            constScore.setText("Enjoy the game");
+        }else {
+            btnSurr.setDisable(false);
+            btnSurr.setOpacity(1);
+            constScore.setText("");
+        }
+    }
+
+    @FXML
+    private void surrender(){
+        Request request = new Request(ReqType.SURRENDER, String.valueOf(User.getInstance().getId()), User.getInstance().getNick());
+        Connection.getInstance().sendToServer(request);
     }
 
     @Override

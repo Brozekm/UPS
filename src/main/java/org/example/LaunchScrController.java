@@ -4,6 +4,8 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import org.example.requests.ReqType;
+import org.example.requests.Request;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -33,14 +35,26 @@ public class LaunchScrController extends MainController{
     private void startTheGame() throws IOException {
         if (Connection.getInstance().isConnected()){
             labServerError.setOpacity(0);
-            if (isNameValid(inpNick.getText())) {
-                App.changeToLoadingScr(inpNick.getText(), inpServerAdr.getText(), inpServerPort.getText());
-                System.out.println("Change of screen to game screne");
-            }
+            isNameValid(inpNick.getText());
         }else {
             labServerError.setText("You are not connected");
             labServerError.setOpacity(1);
         }
+    }
+
+    public void setNickError(){
+        labNickError.setText("Nickname is taken");
+        labNickError.setOpacity(1);
+    }
+
+
+
+    public void setInfoServerClient() {
+        inpServerAdr.setText(Server.getInstance().getAddress());
+        inpServerPort.setText(Server.getInstance().getPort());
+        inpServerPort.setDisable(true);
+        inpServerAdr.setDisable(true);
+        connectBtn.setText("Disconnect");
     }
 
     @FXML
@@ -50,6 +64,8 @@ public class LaunchScrController extends MainController{
             if(conn.disconnect()){
                 inpServerPort.setDisable(false);
                 inpServerAdr.setDisable(false);
+                Server.getInstance().setAddress("");
+                Server.getInstance().setPort("");
                 connectBtn.setText("Connect");
             }else System.out.println("Disconnect unsuccessful");
 
@@ -59,6 +75,8 @@ public class LaunchScrController extends MainController{
                     labServerError.setOpacity(0);
                     inpServerPort.setDisable(true);
                     inpServerAdr.setDisable(true);
+                    Server.getInstance().setAddress(inpServerAdr.getText());
+                    Server.getInstance().setPort(inpServerPort.getText());
                     connectBtn.setText("Disconnect");
                 }else {
                     labServerError.setText("Connection unsuccessful");
@@ -114,7 +132,9 @@ public class LaunchScrController extends MainController{
 
     private boolean isNickUsed(String nick) {
 //        TODO ask server if nick is used, if not return false
-//        Connection.getInstance()
+        User.getInstance().setNick(nick);
+        Request request = new Request(ReqType.LOGIN, "0",nick);
+        Connection.getInstance().sendToServer(request);
         return false;
     }
 
@@ -135,7 +155,7 @@ public class LaunchScrController extends MainController{
             labNickError.setOpacity(1);
             labNickError.setText("Nickname is too short");
             return false;
-        } else if (nick.length() > 32) {
+        } else if (nick.length() > 16) {
             labNickError.setOpacity(1);
             labNickError.setText("Nickname is too long");
             return false;
@@ -144,10 +164,6 @@ public class LaunchScrController extends MainController{
         }
     }
 
-    public String[] getInputs(){
-        String[] arr = {inpNick.getText(), inpServerAdr.getText(), inpServerPort.getText()};
-        return arr;
-    }
 
 
 }

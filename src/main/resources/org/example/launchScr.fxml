@@ -49,7 +49,7 @@
                 </AnchorPane>
                 <AnchorPane layoutX="14.0" layoutY="12.0" prefHeight="590.0" prefWidth="371.0" styleClass="leftBackground" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
                     <children>
-                        <Label layoutX="14.0" layoutY="555.0" prefHeight="35.0" prefWidth="208.0" text="Made by Martin Brozek" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="149.0" AnchorPane.topAnchor="555.0">
+                        <Label layoutX="14.0" layoutY="555.0" prefHeight="35.0" prefWidth="217.0" text="UPS - Semstral work by M.B." textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="555.0">
                             <font>
                                 <Font name="System Bold" size="15.0" />
                             </font>

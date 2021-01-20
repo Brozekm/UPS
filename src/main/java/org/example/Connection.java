@@ -1,10 +1,15 @@
 package org.example;
 
+import org.example.requests.ReqModifier;
+import org.example.requests.Request;
+import org.example.serverResponse.ResponseParser;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 
 public class Connection {
@@ -72,15 +77,37 @@ public class Connection {
 
     }
 
+    public void sendToServer(Request request){
+        if (isConnected){
+            String sReq = ReqModifier.reqForServe(request);
+            OutputStream oStream = getOutputStream();
+
+            try {
+                assert oStream != null;
+                assert sReq != null;
+                oStream.write(sReq.getBytes());
+                System.out.println("Request sent successfully");
+            } catch (IOException e) {
+                System.out.println("Error while sending request to server via output stream");
+            }
+
+        }else
+            System.out.println("Sending request failed - No connection");
+    }
+
 
     private void serverListener(){
-        int num = 0;
+        InputStream iStream = getInputSteam();
+        assert iStream != null;
         while(!socket.isClosed()){
-            System.out.println("Connected for "+ num*2+" sec");
-            num++;
             try {
-                TimeUnit.SECONDS.sleep(2);
-            } catch (InterruptedException e) {
+                if(iStream.available()>0){
+//                    byte[] buffer = iStream.
+                    String received = new String(iStream.readNBytes(iStream.available()), StandardCharsets.UTF_8);
+                    System.out.print("Received: "+received);
+                    ResponseParser.parseResponse(received.substring(0,received.length()-1));
+                }
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }

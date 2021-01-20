@@ -1,6 +1,8 @@
-.pictures{
-    -fx-background-color: white;
+.buttons:hover{
+    -fx-effect:  dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 20, 0, 0, 0);
+    -fx-cursor: hand;
 }
+
 
 .leftBackground{
     -fx-background-color:  linear-gradient(to right bottom, #135dd1, #0083e5, #00a0de, #00b9c7, #00cdac);
@@ -8,7 +10,6 @@
 
 }
 
-.buttons:hover{
-    -fx-effect:  dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 20, 0, 0, 0);
-    -fx-cursor: hand;
+.pictures{
+    -fx-background-color: white;
 }
