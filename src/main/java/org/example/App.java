@@ -19,11 +19,21 @@ public class App extends Application {
 
     private static Scene scene;
 
+    private static LaunchScrController launchController;
+
     double xOffset,yOffset;
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("launchScr"));
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("launchScr.fxml"));
+        try {
+            Parent parent = loader.load();
+
+            launchController = loader.getController();
+            scene = new Scene(parent);
+        } catch (IOException e){
+            System.err.println(e);
+        }
 
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);
@@ -49,22 +59,73 @@ public class App extends Application {
         });
     }
 
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-        scene.getStylesheets().add("styles/game.css");
+    public static void nickIsUsed(){
+        launchController.setNickError();
     }
 
-    static void changeToLoading(){
-        scene.getStylesheets().clear();
-        scene.getStylesheets().add("styles/loading.css");
-    }
-    static void changeToPlayMode(){
-        scene.getStylesheets().clear();
-        scene.getStylesheets().add("styles/game.css");
+
+
+
+    public static void changeToLoadingScr(String nick, String address, String port, String infoText){
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("loadingScr.fxml"));
+        try {
+            Parent parent = loader.load();
+
+            LoadingController controller = loader.getController();
+            controller.setInfoServerClient(nick , address, port, infoText);
+
+            scene.setRoot(parent);
+        } catch (IOException e){
+            System.err.println(e);
+        }
+
     }
 
-    static boolean canSendRequest(){
-        return scene.getStylesheets().contains("styles/game.css");
+    public static void changeToGameScreen(String myScore, String oppScore, String opponentName){
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("gameScr.fxml"));
+        try {
+            Parent parent = loader.load();
+
+            GameScrController controller = loader.getController();
+            controller.setInfoServerClient(myScore, oppScore, opponentName);
+
+            scene.setRoot(parent);
+        } catch (IOException e){
+            System.err.println(e);
+        }
+
+    }
+
+    public static void changeToEndScreen(String myScore, String oppScore, String opponentName, String infoText){
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("endOfGameScr.fxml"));
+        try {
+            Parent parent = loader.load();
+
+            EndOfGameController controller = loader.getController();
+            controller.setInfoServerClient(myScore, oppScore, opponentName, infoText);
+
+            scene.setRoot(parent);
+        } catch (IOException e){
+            System.err.println(e);
+        }
+
+    }
+
+    public static void changeLaunchLogout(){
+        User.getInstance().setNick("");
+        User.getInstance().setId(0);
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("launchScr.fxml"));
+        try {
+            Parent parent = loader.load();
+
+            launchController = loader.getController();
+            launchController.setInfoServerClient();
+
+            scene.setRoot(parent);
+        } catch (IOException e){
+            System.err.println(e);
+        }
+
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
