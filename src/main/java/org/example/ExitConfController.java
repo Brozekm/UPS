@@ -20,6 +20,7 @@ public class ExitConfController{
         stage.close();
         Connection.getInstance().disconnect();
         Platform.exit();
+        System.exit(0);
     }
 
     @FXML
