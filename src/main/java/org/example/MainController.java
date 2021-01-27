@@ -23,6 +23,7 @@ public abstract class MainController {
             conn.disconnect();
         }
         Platform.exit();
+        System.exit(0);
     }
 
     @FXML
